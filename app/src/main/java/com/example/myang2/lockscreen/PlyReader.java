@@ -214,14 +214,14 @@ class PlyReader {
 
     // Getters
     float[] getVertices() {
-//        float[] coord = new float[faces.length * 3];
-//        for (int i = 0; i < faces.length;) {
-//            coord[i * 3] = vertices[faces[i] * 3];
-//            coord[i * 3 + 1] = vertices[faces[i] * 3 + 1];
-//            coord[i * 3 + 2] = vertices[faces[i] * 3 + 2];
-//        }
-//        return coord;
-        return vertices;
+        float[] coord = new float[faces.length * 3];
+        for (int i = 0; i < faces.length; i++) {
+            coord[i * 3] = vertices[faces[i] * 3];
+            coord[i * 3 + 1] = vertices[faces[i] * 3 + 1];
+            coord[i * 3 + 2] = vertices[faces[i] * 3 + 2];
+        }
+        return coord;
+        //return vertices;
     }
     int[] getFaces() {
         return faces;
