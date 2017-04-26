@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
      */
     private GoogleApiClient client;
     private int index = 0;
-    private float[] maxMin = new float[6];
+    //private float[] maxMin = new float[6];
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

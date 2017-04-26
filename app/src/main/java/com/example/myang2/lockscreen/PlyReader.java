@@ -30,7 +30,6 @@ class PlyReader {
     private int faceSize = 3;
     // Normalizing constants
     private float vertexMax = MIN_VALUE;
-    private float vertexMin = MAX_VALUE;
     private float vertexXMax = MIN_VALUE;
     private float vertexXMin = MAX_VALUE;
     private float vertexYMax = MIN_VALUE;
@@ -164,9 +163,7 @@ class PlyReader {
     }
 
     private void ScaleData() {
-        vertexMax *= 2;
         for (int i = 0; i < vertexCount * vertexSize; i++) {
-            vertices[i] /= vertexMax;
             if (i % 3 == 0 && vertices[i] > vertexXMax) {
                 vertexXMax = vertices[i];
             }
@@ -186,13 +183,46 @@ class PlyReader {
                 vertexZMin = vertices[i];
             }
         }
+        float midX = (vertexXMin + vertexXMax) / 2.0f;
+        float midY = (vertexYMax + vertexYMin) / 2.0f;
+        float midZ = (vertexZMax + vertexZMin) / 2.0f;
+        float width = vertexXMax - vertexXMin;
+        float height = vertexYMax - vertexYMin;
+        float depth = vertexZMax - vertexZMin;
+        float ratio = Math.max(width, Math.max(height, depth)) / 2.9f;
+
+        //vertexMax *= 1.5f;
+        for (int i = 0; i < vertexCount * vertexSize; i++) {
+            if (i % 3 == 0) {
+                vertices[i] -= midX;
+                vertices[i] /= ratio;
+            }
+            if (i % 3 == 1) {
+                vertices[i] -= midY;
+                vertices[i] /= ratio;
+            }
+            if (i % 3 == 2) {
+                vertices[i] -= midZ;
+                vertices[i] /= ratio;
+            }
+        }
+
         for (int i = 0; i < vertexCount * colorSize; i++) {
             colors[i] /= colorMax;
         }
     }
 
     // Getters
-    float[] getVertices() { return vertices; }
+    float[] getVertices() {
+//        float[] coord = new float[faces.length * 3];
+//        for (int i = 0; i < faces.length;) {
+//            coord[i * 3] = vertices[faces[i] * 3];
+//            coord[i * 3 + 1] = vertices[faces[i] * 3 + 1];
+//            coord[i * 3 + 2] = vertices[faces[i] * 3 + 2];
+//        }
+//        return coord;
+        return vertices;
+    }
     int[] getFaces() {
         return faces;
     }

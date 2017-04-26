@@ -10,20 +10,20 @@ import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ALL")
 public class MyGLRenderer2 implements GLSurfaceView.Renderer {
-        private static final float CUBE_ROTATION_INCREMENT = 0.6f;
+    private static final float CUBE_ROTATION_INCREMENT = 0.6f;
 
-        private static final int REFRESH_RATE_FPS = 60;
+    private static final int REFRESH_RATE_FPS = 60;
 
-        private static final float FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
+    private static final float FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
-        private Pyramid mPyramid;
-        private final float[] mMVPMatrix = new float[16];
-        private final float[] mProjectionMatrix = new float[16];
-        private final float[] mViewMatrix = new float[16];
-        private int[] faces = null;
-        private float[] vertices = null;
-        private float[] colors = null;
-        private int curIndex;
+    private Pyramid mPyramid;
+    private final float[] mMVPMatrix = new float[16];
+    private final float[] mProjectionMatrix = new float[16];
+    private final float[] mViewMatrix = new float[16];
+    private int[] faces = null;
+    private float[] vertices = null;
+    private float[] colors = null;
+    private int curIndex;
     private float xMax;
     private float xMin;
     private float yMax;
@@ -77,7 +77,7 @@ public class MyGLRenderer2 implements GLSurfaceView.Renderer {
 //                Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 3, 7);
 //            }
             //Matrix.translateM(mProjectionMatrix, 0, -(xMax + xMin) / 2, -(yMax + yMin) / 2, -(zMax + zMin) / 2);
-            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 3, 7);
+            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 1, 7);
             //Matrix.scaleM(mProjectionMatrix, 0, 0.8f, 0.8f, 0.8f);
             Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
         }

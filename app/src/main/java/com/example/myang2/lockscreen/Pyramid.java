@@ -68,8 +68,13 @@ class Pyramid {
         // get handle to shape's transformation matrix
         int mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
         GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
-        GLES20.glDrawElements(GLES20.GL_TRIANGLES, curFaces.length, GLES20.GL_UNSIGNED_INT,
-                indexBuffer);
+        for (int i = 0; i < curFaces.length;) {
+            GLES20.glDrawElements(GLES20.GL_LINE_LOOP, 3, GLES20.GL_UNSIGNED_INT,
+                    indexBuffer);
+            i += 3;
+            indexBuffer.position(i);
+        }
+        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, curFaces.length);
 
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(mPositionHandle);
