@@ -77,7 +77,7 @@ public class MyGLRenderer2 implements GLSurfaceView.Renderer {
 //                Matrix.orthoM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 3, 7);
 //            }
             //Matrix.translateM(mProjectionMatrix, 0, -(xMax + xMin) / 2, -(yMax + yMin) / 2, -(zMax + zMin) / 2);
-            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 1, 7);
+            Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 1, 10);
             //Matrix.scaleM(mProjectionMatrix, 0, 0.8f, 0.8f, 0.8f);
             Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
         }
