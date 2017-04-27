@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.content.Context;
 import android.view.GestureDetector;

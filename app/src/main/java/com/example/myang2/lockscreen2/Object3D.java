@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.opengl.GLES20;
 
@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-class Pyramid {
+class Object3D {
     private static final String vertexShaderCode =
             "uniform mat4 uMVPMatrix;" +
             "attribute vec4 vPosition;" +
@@ -27,7 +27,6 @@ class Pyramid {
 
     private final int mProgram;
     private FloatBuffer vertexBuffer;  // Buffer for vertex-array
-    private IntBuffer indexBuffer;    // Buffer for index-array
     private FloatBuffer colorBuffer;
     private static final int COORS_PER_VERTEX = 3;
     private static final int VALUES_PER_COLOR = 4;
@@ -35,7 +34,7 @@ class Pyramid {
     private float[] curColors;
 
     // Constructor - Set up the buffers
-    Pyramid() {
+    Object3D() {
         mProgram = GLES20.glCreateProgram();
     }
 
@@ -108,13 +107,13 @@ class Pyramid {
         // Setup index-array buffer. Indices in int.
         ByteBuffer ibb = ByteBuffer.allocateDirect(curFaces.length * 4);
         ibb.order(ByteOrder.nativeOrder());
-        indexBuffer = ibb.asIntBuffer();
+        IntBuffer indexBuffer = ibb.asIntBuffer();
         indexBuffer.put(curFaces);
         indexBuffer.position(0);
 
-        int vertexShader = MyGLRenderer2.loadShader(GLES20.GL_VERTEX_SHADER,
+        int vertexShader = MyGLRenderer.loadShader(GLES20.GL_VERTEX_SHADER,
                 vertexShaderCode);
-        int fragmentShader = MyGLRenderer2.loadShader(GLES20.GL_FRAGMENT_SHADER,
+        int fragmentShader = MyGLRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER,
                 fragmentShaderCode);
 
         GLES20.glAttachShader(mProgram, vertexShader);

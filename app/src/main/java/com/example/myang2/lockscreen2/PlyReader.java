@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.util.Log;
 import java.io.BufferedReader;
@@ -42,6 +42,7 @@ class PlyReader {
     private int faceCount = 0;
     // Counter for header
     private int elementCount = 0;
+    private float midX, midY, midZ, ratio;
 
     PlyReader(InputStream plyFile) {
         bufferedReader = new BufferedReader(new InputStreamReader(plyFile));
@@ -183,13 +184,13 @@ class PlyReader {
                 vertexZMin = vertices[i];
             }
         }
-        float midX = (vertexXMin + vertexXMax) / 2.0f;
-        float midY = (vertexYMax + vertexYMin) / 2.0f;
-        float midZ = (vertexZMax + vertexZMin) / 2.0f;
+        midX = (vertexXMin + vertexXMax) / 2.0f;
+        midY = (vertexYMax + vertexYMin) / 2.0f;
+        midZ = (vertexZMax + vertexZMin) / 2.0f;
         float width = vertexXMax - vertexXMin;
         float height = vertexYMax - vertexYMin;
         float depth = vertexZMax - vertexZMin;
-        float ratio = Math.max(width, Math.max(height, depth)) / 2.9f;
+        ratio = Math.max(width, Math.max(height, depth)) / 2.5f;
 
         //vertexMax *= 1.5f;
         for (int i = 0; i < vertexCount * vertexSize; i++) {
@@ -228,12 +229,12 @@ class PlyReader {
     }
     float[] getMaxMin() {
         float[] maxMin = new float[6];
-        maxMin[0] = vertexXMax;
-        maxMin[1] = vertexXMin;
-        maxMin[2] = vertexYMax;
-        maxMin[3] = vertexYMin;
-        maxMin[4] = vertexZMax;
-        maxMin[5] = vertexZMin;
+        maxMin[0] = (vertexXMax - midX) / ratio;
+        maxMin[1] = (vertexXMin - midX) / ratio;
+        maxMin[2] = (vertexYMax - midY) / ratio;
+        maxMin[3] = (vertexYMin - midY) / ratio;
+        maxMin[4] = (vertexZMax - midZ) / ratio;
+        maxMin[5] = (vertexZMin - midZ) / ratio;
         return maxMin;
     }
 }

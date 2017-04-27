@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
             mGLView.setFaces(plyReader.getFaces());
             mGLView.setColors(plyReader.getVertices().length);
             mGLView.setFile(index);
-            //mGLView.setMaxMin(plyReader.getMaxMin());
+            mGLView.setMaxMin(plyReader.getMaxMin());
             mGLView.setVertices(plyReader.getVertices());
         } catch (IOException e) {
             e.printStackTrace();
