@@ -3,6 +3,7 @@ package com.example.myang2.lockscreen2;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +46,8 @@ public class MainActivity extends Activity {
         final LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
 
         mGLView = new MyGLSurfaceView(this);
+        layout.addView(mGLView);
+
         try {
             InputStream in = getAssets().open(fileNames[index]);
             PlyReader plyReader = new PlyReader(in);
@@ -58,10 +61,6 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        makeFullScreen();
-        startService(new Intent(this, LockScreenService.class));
-        layout.addView(mGLView);
-
         Button button = (Button) findViewById(R.id.button);
         button.setText("UnLock");
         button.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +69,9 @@ public class MainActivity extends Activity {
                 unlockScreen(v);
             }
         });
+
+        makeFullScreen();
+        startService(new Intent(this, LockScreenService.class));
         layout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             public void onSwipeRight() {
                 //mGLView = new MyGLSurfaceView(MainActivity.this);
@@ -127,8 +129,13 @@ public class MainActivity extends Activity {
     public void makeFullScreen() {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.getWindow().getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        if(Build.VERSION.SDK_INT < 19) { //View.SYSTEM_UI_FLAG_IMMERSIVE is only on API 19+
+            this.getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        } else {
+            this.getWindow().getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        }
     }
 
     public void unlockScreen(View view) {
@@ -138,6 +145,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        return;
     }
 
     @Override
