@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.app.KeyguardManager;
 import android.app.Service;

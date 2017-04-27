@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -25,7 +25,7 @@ import android.opengl.GLSurfaceView;
  */
 public class MyGLSurfaceView extends GLSurfaceView {
 
-    private MyGLRenderer2 mRenderer;
+    private MyGLRenderer mRenderer;
 
     public MyGLSurfaceView(Context context) {
         super(context);
@@ -34,7 +34,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
         setEGLContextClientVersion(2);
 
         // Set the Renderer for drawing on the GLSurfaceView
-        mRenderer = new MyGLRenderer2();
+        mRenderer = new MyGLRenderer();
         setRenderer(mRenderer);
 
         // Render the view only when there is a change in the drawing data

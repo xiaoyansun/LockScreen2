@@ -1,4 +1,4 @@
-package com.example.myang2.lockscreen;
+package com.example.myang2.lockscreen2;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -9,14 +9,14 @@ import android.opengl.Matrix;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ALL")
-public class MyGLRenderer2 implements GLSurfaceView.Renderer {
+public class MyGLRenderer implements GLSurfaceView.Renderer {
     private static final float CUBE_ROTATION_INCREMENT = 0.6f;
 
     private static final int REFRESH_RATE_FPS = 60;
 
     private static final float FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;
 
-    private Pyramid mPyramid;
+    private Object3D mObject3D;
     private final float[] mMVPMatrix = new float[16];
     private final float[] mProjectionMatrix = new float[16];
     private final float[] mViewMatrix = new float[16];
@@ -31,7 +31,7 @@ public class MyGLRenderer2 implements GLSurfaceView.Renderer {
     private float zMax;
     private float zMin;
 
-    public MyGLRenderer2() {
+    public MyGLRenderer() {
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
     }
         public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -41,7 +41,7 @@ public class MyGLRenderer2 implements GLSurfaceView.Renderer {
             GLES20.glEnable(GLES20.GL_DEPTH_TEST);
             //GLES20.glEnable(GLES20.GL_CULL_FACE);
             GLES20.glDepthFunc(GLES20.GL_LEQUAL);
-            mPyramid = new Pyramid();
+            mObject3D = new Object3D();
         }
 
         public void onDrawFrame(GL10 unused) {
@@ -58,10 +58,10 @@ public class MyGLRenderer2 implements GLSurfaceView.Renderer {
 
             // Calculate the projection and view transformation
             //Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
-            mPyramid.setFaces(faces);
-            mPyramid.setColors(colors);
-            mPyramid.setVertices(vertices);
-            mPyramid.draw(mMVPMatrix);
+            mObject3D.setFaces(faces);
+            mObject3D.setColors(colors);
+            mObject3D.setVertices(vertices);
+            mObject3D.draw(mMVPMatrix);
         }
 
         public void onSurfaceChanged(GL10 unused, int width, int height) {
